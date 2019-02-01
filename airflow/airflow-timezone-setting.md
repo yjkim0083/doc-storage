@@ -100,7 +100,10 @@ var UTCseconds = (x.getTime());  << 현재시간만 반영
   });
 ```
 
-위의 코드를 수정 후 airflow UI를 refresh 하면 아래와 같이 KST 기분의 시간을 볼수 있다.
+위의 코드를 수정 후 airflow UI를 refresh 하면 아래와 같이 KST 기준의 시간을 볼 수 있다.
 <p align="center">
   <img src="./images/airflow-kst-time.png">
 </p>
+
+## UI - tree 영역의 time
+
