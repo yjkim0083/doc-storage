@@ -12,8 +12,8 @@ public class Printer {
     public static void main(String[] args) {
 
         Printer p = new Printer();
-        int[] priorities = {2,3,5,2};
-        int location = 2;
+        int[] priorities = {4,1,7,3};
+        int location = 3;
         System.out.println(p.solution(priorities, location));
     }
 
@@ -23,52 +23,40 @@ public class Printer {
 
         List<Integer> list = new LinkedList<>();
         List<String> sList = new LinkedList<>();
+        List<Integer> rlist = new LinkedList<>();
+        List<String> rsList = new LinkedList<>();
+
         int index = 0;
         for(int i : priorities) {
             list.add(i);
             sList.add("S" + index++);
         }
 
-        System.out.println(list.toString());
-        System.out.println(sList.toString());
+        while(true) {
+            int j = list.get(0);
 
-        int addCnt = 0;
-        for(int i=0; i < priorities.length; i++) {
-            int j = priorities[i];
-            if(i < priorities.length - 1) {
-
-                for(int y=i+1; y < priorities.length; y++) {
-                    if(j < list.get(y)) {
-                        System.out.println("j : " + j + ", list.get(y) " + list.get(y));
-                        list.add(list.get(i));
-                        sList.add(sList.get(i));
-                        System.out.println("============================");
-                        System.out.println(list.toString());
-                        System.out.println(sList.toString());
-                        System.out.println("============================");
-                        addCnt++;
-                        break;
-                    }
+            boolean isDequeue = true;
+            for(int i=0; i < list.size(); i++) {
+                if(j < list.get(i)) {
+                    isDequeue = false;
+                    list.add(list.remove(0));
+                    sList.add(sList.remove(0));
+                    break;
                 }
             }
-        }
 
-        System.out.println(list.toString());
-        System.out.println(sList.toString());
-        System.out.println("addCnt : " + addCnt);
-        if(addCnt > 0) {
-            while(addCnt > 0) {
-                list.remove(addCnt - 1);
-                sList.remove(addCnt - 1);
-                addCnt--;
+            if(isDequeue) {
+                rlist.add(list.remove(0));
+                rsList.add(sList.remove(0));
+            }
+
+            if(rlist.size() == priorities.length) {
+                break;
             }
         }
 
-        System.out.println(list.toString());
-        System.out.println(sList.toString());
-
         for(int i=0; i < priorities.length; i++) {
-            if(sList.get(i).equals(target)) {
+            if(rsList.get(i).equals(target)) {
                 answer = i + 1;
             }
         }
